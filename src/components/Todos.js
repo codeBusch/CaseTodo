@@ -58,7 +58,7 @@ function Todos() {
       <div className="display flex h-max">
         <div className="ml-4 text-[#B1BACB] ">
           {count}
-          {todos.length === 1 ? " item selected" : " items selected"}
+          {count <= 1 ? " item selected" : " items selected"}
         </div>
 
         <button
