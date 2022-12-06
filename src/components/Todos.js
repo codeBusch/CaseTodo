@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { useTodo } from "../Context/TodoContext";
 
 function Todos() {
   const { todos, setTodo } = useTodo();
+  const [count, setCount] = useState(0);
   const clearCompleted = () => {
     setTodo(
       todos.filter((todos) => {
@@ -9,11 +11,23 @@ function Todos() {
       })
     );
   };
+  useEffect(() => {
+    completedLength();
+  });
+  const completedLength = () => {
+    let items = [...todos];
+    let length = 0;
+    for (let i = 0; i < items.length; i++) {
+      items[i].isCompleted === true && length++;
+    }
+    setCount(length);
+  };
   const checkTodo = (i) => {
     let items = [...todos];
     items[i].isCompleted = !items[i].isCompleted;
     setTodo(items);
   };
+
   return (
     <div>
       <div>
@@ -43,7 +57,7 @@ function Todos() {
       <div className="border-2"></div>
       <div className="display flex h-max">
         <div className="ml-4 text-[#B1BACB] ">
-          {todos.length}
+          {count}
           {todos.length === 1 ? " item selected" : " items selected"}
         </div>
 
@@ -51,7 +65,7 @@ function Todos() {
           className="ml-auto mr-4 text-[#B1BACB]"
           onClick={clearCompleted}
         >
-          Clear All
+          Clear Selected
         </button>
       </div>
     </div>
