@@ -12,16 +12,9 @@ function Todos() {
     );
   };
   useEffect(() => {
-    completedLength();
-  });
-  const completedLength = () => {
-    let items = [...todos];
-    let length = 0;
-    for (let i = 0; i < items.length; i++) {
-      items[i].isCompleted === true && length++;
-    }
-    setCount(length);
-  };
+    setCount(todos.filter((todo) => todo.isCompleted).length);
+  }, [todos]);
+
   const checkTodo = (i) => {
     let items = [...todos];
     items[i].isCompleted = !items[i].isCompleted;
